@@ -44,7 +44,6 @@ export function spawnShell(ws) {
         env: process.env
     });
 
-    console.log(`started shell: ${ws.shell}`);
 
     ws.on("message", (data) => {
         try {
