@@ -2,22 +2,24 @@
     import { onMount } from "svelte";
     import "@xterm/xterm/css/xterm.css"
 
-    let { url } = $props();
-
-    let wsInitialised = $state(false);
+    let { url, binary = "sh", rows = 24, cols = 80, onClose = ()=> null} = $props();
 
     onMount(async () => {
         const { Terminal } = await import("@xterm/xterm")
-        const ws = new WebSocket(url)
-        const term = new Terminal();
-        const termHtml = document.getElementById("terminal");
-
-        if (!(termHtml === null)) {
-            term.open(termHtml);
-        }   
+        console.log(url+"?shell="+binary+"&rows="+rows+"&cols="+cols)
+        const ws = new WebSocket(url+"?shell="+binary+"&rows="+rows+"&cols="+cols)
+        const term = new Terminal({
+            cursorBlink: true,
+            cols: cols,
+            rows: rows
+        });
+        const termHtml = document.getElementById("terminal");   
+        if (!(termHtml===null)) {
+            term.open(termHtml)
+        }
 
         ws.addEventListener("open", (e) => {
-            wsInitialised = true;
+            term.clear()            
         });
 
         ws.addEventListener("message", (e) => {
@@ -31,8 +33,9 @@
         ws.addEventListener("close", (e)=>{
             term.clear()
             term.write("Connection closed.")
+            onClose()
         })
     });
 </script>
 
-<div id="terminal"></div>
+<div id="terminal" style="width: min-content;"></div>
