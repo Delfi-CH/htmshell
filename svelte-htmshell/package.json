@@ -1,7 +1,7 @@
 {
 	"name": "svelte-htmshell",
 	"private": false,
-	"version": "0.0.1",
+	"version": "0.8.0",
 	"type": "module",
 	"license": "MIT",
 	"scripts": {
@@ -10,18 +10,27 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"package": "svelte-package"
 	},
+	"exports": {
+		".": {
+			"types": "./dist/Terminal.svelte.d.ts",
+			"svelte": "./dist/Terminal.svelte"
+		}
+	},
+	"files": ["dist"],
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
-		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
 		"typescript": "^6.0.2",
 		"vite": "^8.0.7"
 	},
 	"dependencies": {
+		"@sveltejs/package": "^2.5.7",
+		"svelte": "^5.55.9",
 		"@xterm/xterm": "^6.0.0"
 	}
 }

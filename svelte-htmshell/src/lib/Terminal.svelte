@@ -11,7 +11,8 @@
         const term = new Terminal({
             cursorBlink: true,
             cols: cols,
-            rows: rows
+            rows: rows,
+            cursorStyle: "bar",
         });
         const termHtml = document.getElementById("terminal");   
         if (!(termHtml===null)) {
@@ -38,4 +39,6 @@
     });
 </script>
 
-<div id="terminal" style="width: min-content;"></div>
+<div style="width: min-content;">
+    <div id="terminal"></div>
+</div>
