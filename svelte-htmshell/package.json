@@ -1,8 +1,9 @@
 {
 	"name": "svelte-htmshell",
-	"private": true,
+	"private": false,
 	"version": "0.0.1",
 	"type": "module",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -19,5 +20,8 @@
 		"svelte-check": "^4.4.6",
 		"typescript": "^6.0.2",
 		"vite": "^8.0.7"
+	},
+	"dependencies": {
+		"@xterm/xterm": "^6.0.0"
 	}
 }
