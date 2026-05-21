@@ -2,10 +2,10 @@ import * as os from "node:os";
 import * as pty from "node-pty";
 import process from "node:process";
 
-export function expressHtmshell() {
+export function expressHtmshell(shell) {
     return (wss) => {
         wss.on("connection", (ws, req) => {
-            const bash = pty.spawn(req.url.slice(1), [], {
+            const bash = pty.spawn(shell, [], {
                 name: "xterm-256color",
                 cols: 80,
                 rows: 24,

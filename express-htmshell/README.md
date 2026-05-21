@@ -23,7 +23,7 @@ const server = createServer(app);
 
 const wss = new WebSocketServer({ noServer: true });
 
-expressHtmshell()(wss);
+expressHtmshell("bash")(wss);
 
 server.on("upgrade", (req, socket, head) => {
     if (req.url.startsWith("/shell")) {
