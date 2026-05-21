@@ -1,12 +1,12 @@
 # htmshell
 
-Display a UNIX-Shell in HTML via WebSockets
+Remotly open a Terminal via WebSockets
 
 ## Implementations
 
 ### Backend
 
-- express-htmshell
+- [express-htmshell](./express-htmshell/README.md)
 
 ### Frontend
 

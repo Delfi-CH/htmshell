@@ -1,14 +1,35 @@
 {
   "name": "express-htmshell",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express-Implementation of the htmshell backend",
+  "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "exports": {
+    ".": {
+      "import": "./index.js"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "example": "node example.js"
+  },
+  "keywords": [
+    "shell",
+    "bash",
+    "express",
+    "expressjs",
+    "terminal"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Delfi-CH/htmshell.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Delfi-CH/htmshell/issues"
+  },
+  "homepage": "https://github.com/Delfi-CH/htmshell",
+  "readme": "README.md",
+  "author": "Delfi-CH <delfi@delfi.dev>",
+  "license": "MIT",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -16,5 +37,9 @@
       "onFail": "download"
     }
   },
-  "type": "module"
+  "dependencies": {
+    "express": "^5.2.1",
+    "node-pty": "^1.1.0",
+    "ws": "^8.20.1"
+  }
 }
