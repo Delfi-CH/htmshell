@@ -2,13 +2,13 @@
     import { onMount } from "svelte";
     import "@xterm/xterm/css/xterm.css"
 
-    let { url, binary = "sh" } = $props();
+    let { url } = $props();
 
     let wsInitialised = $state(false);
 
     onMount(async () => {
         const { Terminal } = await import("@xterm/xterm")
-        const ws = new WebSocket(url + binary)
+        const ws = new WebSocket(url)
         const term = new Terminal();
         const termHtml = document.getElementById("terminal");
 
