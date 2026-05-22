@@ -14,8 +14,8 @@ npm install svelte-htmshell
 
 ```svelte
 <script>
-    import DynamicTerminal from "$lib/DynamicTerminal.svelte";
-    import Terminal from "$lib/Terminal.svelte";
+    import DynamicTerminal from "svelte-htmshell";
+    import Terminal from "svelte-htmshell/dynamic";
 </script>
 
 <Terminal url="ws://localhost:3000/shell" binary="fish" rows={40} cols={120} onClose={()=>alert("Terminal closed!")}></Terminal>
