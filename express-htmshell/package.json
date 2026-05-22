@@ -1,6 +1,6 @@
 {
   "name": "express-htmshell",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Express-Implementation of the htmshell backend",
   "type": "module",
   "main": "index.js",
@@ -37,8 +37,10 @@
       "onFail": "download"
     }
   },
+  "devDependencies": {
+    "express": "^5.2.1"
+  },
   "dependencies": {
-    "express": "^5.2.1",
     "node-pty": "^1.1.0",
     "ws": "^8.20.1"
   }
