@@ -17,6 +17,10 @@
 		".": {
 			"types": "./dist/Terminal.svelte.d.ts",
 			"svelte": "./dist/Terminal.svelte"
+		},
+		"./dynamic" : {
+			"types": "./dist/DynamicTerminal.svelte.d.ts",
+			"svelte": "./dist/DynamicTerminal.svelte"
 		}
 	},
 	"files": [
