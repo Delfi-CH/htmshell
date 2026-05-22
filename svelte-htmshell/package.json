@@ -1,7 +1,7 @@
 {
 	"name": "svelte-htmshell",
 	"private": false,
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"type": "module",
 	"license": "MIT",
 	"scripts": {
@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/package": "^2.5.7",
+		"@xterm/addon-fit": "^0.11.0",
 		"@xterm/xterm": "^6.0.0",
 		"svelte": "^5.55.9"
 	}

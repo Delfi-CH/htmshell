@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import "@xterm/xterm/css/xterm.css";
 
     let {
@@ -10,11 +10,11 @@
         onClose = () => null,
     } = $props();
 
+    let termHtml: HTMLDivElement;
+    let cleanup = () => {};
+
     onMount(async () => {
         const { Terminal } = await import("@xterm/xterm");
-        console.log(
-            url + "?shell=" + binary + "&rows=" + rows + "&cols=" + cols,
-        );
         const ws = new WebSocket(
             url + "?shell=" + binary + "&rows=" + rows + "&cols=" + cols,
         );
@@ -24,10 +24,10 @@
             rows: rows,
             cursorStyle: "bar",
         });
-        const termHtml = document.getElementById("terminal");
-        if (!(termHtml === null)) {
-            term.open(termHtml);
+        if (!termHtml) {
+            return
         }
+        term.open(termHtml);
 
         ws.addEventListener("open", (e) => {
             term.clear();
@@ -46,9 +46,18 @@
             term.write("Connection closed.");
             onClose();
         });
+
+        cleanup = () =>{
+            term.dispose()
+            ws.close()
+        }
     });
+
+    onDestroy(()=>{
+        cleanup()
+    })
 </script>
 
-<div style="width: fit-content;">
-    <div id="terminal"></div>
+<div>
+    <div bind:this={termHtml}></div>
 </div>
