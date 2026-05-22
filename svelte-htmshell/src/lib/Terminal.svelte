@@ -8,6 +8,7 @@
         rows = 24,
         cols = 80,
         onClose = () => null,
+        args = []
     } = $props();
 
     let termHtml: HTMLDivElement;
@@ -15,8 +16,9 @@
 
     onMount(async () => {
         const { Terminal } = await import("@xterm/xterm");
+        const argstring = args.length > 0 ? "&arg=" + args.join("&arg=") : ""
         const ws = new WebSocket(
-            url + "?shell=" + binary + "&rows=" + rows + "&cols=" + cols,
+            url + "?shell=" + binary + "&rows=" + rows + "&cols=" + cols + argstring,
         );
         const term = new Terminal({
             cursorBlink: true,

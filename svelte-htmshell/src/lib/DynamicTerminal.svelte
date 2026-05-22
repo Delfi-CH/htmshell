@@ -2,7 +2,7 @@
     import { onDestroy, onMount } from "svelte";
     import "@xterm/xterm/css/xterm.css";
 
-    let { url, binary = "sh", onClose = () => null } = $props();
+    let { url, binary = "sh", onClose = () => null, args = [] } = $props();
 
     let termHtml: HTMLDivElement;
     let cleanup = () => {};
@@ -10,7 +10,8 @@
     onMount(async () => {
         const { Terminal } = await import("@xterm/xterm");
         const { FitAddon } = await import("@xterm/addon-fit");
-        const ws = new WebSocket(url + "?shell=" + binary);
+        const argstring = args.length > 0 ? "&arg=" + args.join("&arg=") : ""
+        const ws = new WebSocket(url + "?shell=" + binary + argstring);
         const term = new Terminal({
             cursorBlink: true,
             cursorStyle: "bar",
