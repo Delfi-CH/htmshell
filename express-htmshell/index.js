@@ -21,10 +21,14 @@ export function setupHtmshell(server, path) {
         const rows = Number(url.searchParams.get("rows")) || 0;
         const cols = Number(url.searchParams.get("cols")) || 0;
 
+
+        const args = url.searchParams.getAll("arg") || [ "" ];
+
         wss.handleUpgrade(req, socket, head, (ws) => {
             ws.shell = shell;
             ws.rows = rows;
             ws.cols = cols;
+            ws.args = args
 
             wss.emit("connection", ws, req);
         });
@@ -50,7 +54,7 @@ export function spawnShell(ws) {
         options.cols = ws.cols
     }
 
-    const term = pty.spawn(ws.shell, [], options);
+    const term = pty.spawn(ws.shell, ws.args, options);
 
 
     ws.on("message", (data) => {
