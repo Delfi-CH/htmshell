@@ -18,8 +18,8 @@ export function setupHtmshell(server, path) {
         }
 
         const shell = url.searchParams.get("shell") || "bash";
-        const rows = Number(url.searchParams.get("rows")) || 24;
-        const cols = Number(url.searchParams.get("cols")) || 80;
+        const rows = Number(url.searchParams.get("rows")) || 0;
+        const cols = Number(url.searchParams.get("cols")) || 0;
 
         wss.handleUpgrade(req, socket, head, (ws) => {
             ws.shell = shell;
@@ -36,13 +36,21 @@ export function setupHtmshell(server, path) {
 };
 
 export function spawnShell(ws) {
-    const term = pty.spawn(ws.shell, [], {
+    let options = {
         name: "xterm-256color",
-        cols: ws.cols,
-        rows: ws.rows,
         cwd: os.homedir(),
         env: process.env
-    });
+    }
+
+    if (ws.rows !== 0) {
+        options.rows = ws.rows
+    }
+
+    if (ws.cols !== 0) {
+        options.cols = ws.cols
+    }
+
+    const term = pty.spawn(ws.shell, [], options);
 
 
     ws.on("message", (data) => {
@@ -50,10 +58,18 @@ export function spawnShell(ws) {
             const parsed = JSON.parse(data);
 
             if (parsed.type === "resize") {
-                term.resize(parsed.cols, parsed.rows);
+                if (
+                    Number.isInteger(parsed.cols) &&
+                    Number.isInteger(parsed.rows) &&
+                    parsed.cols > 0 &&
+                    parsed.rows > 0
+                ) {
+                    term.resize(parsed.cols, parsed.rows);
+                }
+
                 return;
             }
-        } catch {}
+        } catch { }
 
         term.write(data.toString());
     });
